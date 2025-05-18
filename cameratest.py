@@ -3,26 +3,30 @@
 # picam stuff https://pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
 
 # import the necessary packages
-##from picamera.array import PiRGBArray  #only works on pi
-##from picamera import PiCamera
+from picamera2 import Picamera2
+
 
 import cv2
 import numpy as np
 
 # Open the default camera, does this work for default picam? Not sure 
-cam = cv2.VideoCapture(0) #for default webcam on laptop
-#cam = PiCamera() try this for the picam once picamera is imported and stuff
+# cam = cv2.VideoCapture(0) #for default webcam on laptop
+picam2 = Picamera2() #try this for the picam once picamera is imported and stuff
+camera_config = picam2.create_preview_configuration() #configure camera
+picam2.configure(camera_config) #finish config
+
+check = picam2.camera_configuration()['raw']
+
+picam2.start() #initialize camera
 
 while True:
     # Read a frame from the camera. Frame is the actual image as an array. The stuff below manipulates it 
-    ret, frame = cam.read()
+    frame = picam2.capture_array()
 
-    # If frame reading was not successful, break
-    if not ret:
-        break
 
     # Convert the frame to grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = frame
 
     # Apply Gaussian blur to reduce noise and help edge detection
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -57,5 +61,5 @@ while True:
         break
 
 # Release the camera and destroy all windows
-cam.release()
+picam2.release()
 cv2.destroyAllWindows()
