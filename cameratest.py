@@ -12,10 +12,16 @@ import numpy as np
 # Open the default camera, does this work for default picam? Not sure 
 # cam = cv2.VideoCapture(0) #for default webcam on laptop
 cam = Picamera2() #try this for the picam once picamera is imported and stuff
+camera_config = picam2.create_preview_configuration()
+picam2.configure(camera_config)
+
+check = picam2.camera_configuration()['raw']
+
+picam2.start()
 
 while True:
     # Read a frame from the camera. Frame is the actual image as an array. The stuff below manipulates it 
-    ret, frame = cam.read()
+    ret, frame = picam2.capture_array("raw").view(np.uint16)
 
     # If frame reading was not successful, break
     if not ret:
