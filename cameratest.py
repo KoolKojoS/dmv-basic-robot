@@ -21,12 +21,12 @@ picam2.start()
 
 while True:
     # Read a frame from the camera. Frame is the actual image as an array. The stuff below manipulates it 
-    frame = picam2.capture_array("raw").view(np.uint16)
+    frame = picam2.capture_array()
 
- 
 
     # Convert the frame to grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = frame
 
     # Apply Gaussian blur to reduce noise and help edge detection
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
