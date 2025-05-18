@@ -21,11 +21,9 @@ picam2.start()
 
 while True:
     # Read a frame from the camera. Frame is the actual image as an array. The stuff below manipulates it 
-    ret, frame = picam2.capture_array("raw").view(np.uint16)
+    frame = picam2.capture_array("raw").view(np.uint16)
 
-    # If frame reading was not successful, break
-    if not ret:
-        break
+ 
 
     # Convert the frame to grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -63,5 +61,5 @@ while True:
         break
 
 # Release the camera and destroy all windows
-cam.release()
+picam2.release()
 cv2.destroyAllWindows()
