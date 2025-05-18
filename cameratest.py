@@ -11,7 +11,7 @@ import numpy as np
 
 # Open the default camera, does this work for default picam? Not sure 
 # cam = cv2.VideoCapture(0) #for default webcam on laptop
-cam = Picamera2() #try this for the picam once picamera is imported and stuff
+picam2 = Picamera2() #try this for the picam once picamera is imported and stuff
 camera_config = picam2.create_preview_configuration()
 picam2.configure(camera_config)
 
