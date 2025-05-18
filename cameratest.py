@@ -3,7 +3,7 @@
 # picam stuff https://pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
 
 # import the necessary packages
-from picamera2 import PiCamera2
+from picamera2 import Picamera2
 
 
 import cv2
@@ -11,7 +11,7 @@ import numpy as np
 
 # Open the default camera, does this work for default picam? Not sure 
 # cam = cv2.VideoCapture(0) #for default webcam on laptop
-cam = PiCamera2() #try this for the picam once picamera is imported and stuff
+cam = Picamera2() #try this for the picam once picamera is imported and stuff
 
 while True:
     # Read a frame from the camera. Frame is the actual image as an array. The stuff below manipulates it 
